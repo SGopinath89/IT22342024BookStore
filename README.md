@@ -1,6 +1,6 @@
-## THE BOOKSTORE
+# THE BOOKSTORE
 
-#### Technologies Used
+## Technologies Used
 
 The Book Store application is built using the following technologies:
   -  MongoDB: A NoSQL database that stores information related to books, users, and other entities relevant to the application.
