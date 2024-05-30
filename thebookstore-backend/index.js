@@ -1,107 +1,38 @@
-const express = require('express')
-const cors = require('cors')
-const app = express()
-const port = process.env.PORT || 5000;
+const express = require("express");
+const app = express();
+const cors = require("cors");
+require("dotenv").config();
+require("./conn/conn");
 
-// middlewear 
-app.use(cors());
+// Import the user routes
+const User = require("./routes/user");
+
+// Import the book routes
+const Books = require("./routes/book");
+
+// Import the favourite routes
+const Favourite = require("./routes/favourite");
+
+// Import the cart routes
+const Cart = require("./routes/cart");
+
+// Import the order routes
+const Order = require("./routes/order");
+
+// Use JSON middleware
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+// Use the cors middleware
+app.use(cors());
 
-//mongodb config
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const uri = "mongodb+srv://thebookstore-database:gxBhVTpISln70p3J@clusterthebookstore.j6iwh8u.mongodb.net/?retryWrites=true&w=majority&appName=ClusterTHEBOOKSTORE";
+// Use the imported routes
+app.use("/api/v1", User);
+app.use("/api/v1", Books);
+app.use("/api/v1", Favourite);
+app.use("/api/v1", Cart);
+app.use("/api/v1", Order);
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
+// Start the server
+app.listen(process.env.PORT, () => {
+    console.log(`Server started on port ${process.env.PORT}`);
 });
-
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-
-    //create a database collection
-    const bookCollections = client.db("BookInventory").collection("books");
-
-    //insert a book to the database : POST method
-    app.post("/upload-book", async(req, res) => {
-        const data = req.body;
-        const result = await bookCollections.insertOne(data);
-        res.send(result);
-    })
-
-    //get all books :GET method
-    //app.get("/all-books", async(req, res) => {
-    //    const books = bookCollections.find();
-    //    const result = await books.toArray();
-    //    res.send(result);
-    //})
-
-    //update a book to the database : PATCH or UPDATE method
-    app.patch("/book/:id", async(req, res) => {
-        const id = req.params.id;
-        //console.log(id);
-        const updateBookData = req.body;
-        const filter = { _id: new ObjectId(id) };
-        const updateDoc = {
-            $set: {
-                ...updateBookData
-            },
-        }
-        
-        const options = { upsert: true };
-
-        //update 
-        const result = await bookCollections.updateOne(filter, updateDoc, options);
-        res.send(result);
-    })
-
-    //delete a book data : DELETE method
-    app.delete("/book/:id", async(req, res) => {
-        const id = req.params.id;
-        const filter = { _id: new ObjectId(id)};
-        const result = await bookCollections.deleteOne(filter);
-        res.send(result);
-    })
-
-    //find by category : GET method
-    app.get("/all-books", async (req, res) => {
-        let query = {};
-        if(req.query?.category){
-            query = {category: req.query.category};
-        }
-        const result = await bookCollections.find(query).toArray();
-        res.send(result);
-    })
-
-    //get single book data by using id : GET method
-    app.get("/book/:id", async(req, res) => {
-        const id = req.params.id;
-        const filter = { _id: new ObjectId(id)};
-        const result = await bookCollections.findOne(filter);
-        res.send(result);
-    })
-
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    //await client.close();
-  }
-}
-run().catch(console.dir);
-
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
