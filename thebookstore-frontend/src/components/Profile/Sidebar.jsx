@@ -8,6 +8,7 @@ const Sidebar = ({ data }) => {
 	
 	const dispatch = useDispatch();
     const history = useNavigate();
+    const role = useSelector((state) => state.auth.role);
 	
 	return (
 		<div className="flex flex-col items-center justify-between bg-zinc-800 p-6 rounded-lg h-auto lg:h-[100%] shadow-lg">
@@ -27,20 +28,35 @@ const Sidebar = ({ data }) => {
 				<div className="w-full mt-4 h-[1px] bg-zinc-500 hidden lg:block"></div>
 			</div>
 
-			{/* Navigation */}
-			<div className="w-full flex flex-col items-center justify-center hidden lg:flex">
-				<Link to="/profile" className="text-zinc-100 font-semibold w-full py-3 text-center hover:bg-zinc-900 rounded-lg transition-all duration-300 shadow-sm">
-					Favourites
-				</Link>
+			{/* navigation - user */}
+			{role === "user" && (
+				<div className="w-full flex-col items-center justify-center hidden lg:flex">
+					<Link to="/profile" className="text-zinc-100 font-semibold w-full py-2 text-center hover:bg-zinc-900  rounded transition-all duration-300">
+						Favourites
+					</Link>
+					
+					<Link to="/profile/orderHistory" className="text-zinc-100 font-semibold w-full py-2 mt-4 text-center hover:bg-zinc-900  rounded transition-all duration-300">
+						Order History      
+					</Link>
 
-				<Link to="/profile/orderHistory" className="text-zinc-100 font-semibold w-full py-3 mt-4 text-center hover:bg-zinc-900 rounded-lg transition-all duration-300 shadow-sm">
-					Order History      
-				</Link>
-
-				<Link to="/profile/settings" className="text-zinc-100 font-semibold w-full py-3 mt-4 text-center hover:bg-zinc-900 rounded-lg transition-all duration-300 shadow-sm">
-					Settings
-				</Link>
-			</div>    
+					<Link to="/profile/settings" className="text-zinc-100 font-semibold w-full py-2 mt-4 text-center hover:bg-zinc-900  rounded transition-all duration-300" >
+						Settings
+					</Link>
+				</div>
+			)}
+			
+			{/* navigation - admin */}
+			{role === "admin" && (
+				<div className="w-full flex-col items-center justify-center hidden lg:flex">
+					<Link to="/profile" className="text-zinc-100 font-semibold w-full py-2 text-center hover:bg-zinc-900  rounded transition-all duration-300">
+						All orders
+					</Link>
+					
+					<Link to="/profile/add-book" className="text-zinc-100 font-semibold w-full py-2 mt-4 text-center hover:bg-zinc-900  rounded transition-all duration-300">
+						Add book      
+					</Link>
+				</div>
+			)}
 
 			{/* Logout */}
 			<button 
