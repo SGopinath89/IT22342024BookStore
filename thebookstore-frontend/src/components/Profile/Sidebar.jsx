@@ -1,9 +1,12 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
-
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/auth";
 
 const Sidebar = ({ data }) => {
+	const dispatch = useDispatch();
+    const history = useNavigate();
   return (
     <div className="flex flex-col items-center justify-between bg-zinc-800 p-6 rounded-lg h-auto lg:h-[100%] shadow-lg">
 
@@ -38,7 +41,17 @@ const Sidebar = ({ data }) => {
         </div>    
 
         {/* Logout */}
-        <button className="bg-zinc-900 w-3/6 lg:w-full mt-4 lg:mt-0 text-white font-semibold flex items-center justify-center py-3 rounded-lg hover:bg-white hover:text-zinc-900 transition-all duration-300 shadow-md">
+        <button 
+			className="bg-zinc-900 w-3/6 lg:w-full mt-4 lg:mt-0 text-white font-semibold flex items-center justify-center py-3 rounded-lg hover:bg-white hover:text-zinc-900 transition-all duration-300 shadow-md"
+			onClick={() => {
+                dispatch(authActions.logout());
+                dispatch(authActions.changeRole("user"));
+                localStorage.clear("id");
+                localStorage.clear("token");
+                localStorage.clear("role");
+                history("/");
+            }}
+		>
             Log Out <FaArrowRightFromBracket className="ml-2" />
         </button>
 
