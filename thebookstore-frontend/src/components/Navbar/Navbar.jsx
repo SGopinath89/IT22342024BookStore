@@ -32,14 +32,17 @@ const Navbar = () => {
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 	const role = useSelector((state) => state.auth.role);
     
-    if (isLoggedIn === false) {
-        links.splice(2,2);
+    // Remove Cart, Profile, and Admin
+	if (isLoggedIn === false) {
+        links.splice(2,3);
     }
 	
+	// remove Admin
 	if (isLoggedIn === true && role === "user") {
         links.splice(4,1);
     }
 
+	// remove Profile
     if (isLoggedIn === true && role === "admin") {
         links.splice(3,1);
     }
@@ -62,7 +65,7 @@ const Navbar = () => {
                     <div className="hidden md:flex gap-4">
                         {links.map((items, i) => (
                             <div className="flex items-center">
-                                {items.title === "Profile" ?  items.title === "Admin"(
+                                {items.title === "Profile" ||  items.title === "Admin" ? (
                                     <Link to={items.link} key={i} className="px-4 py-1 border border-zinc-900 rounded bg-zinc-900 hover:bg-white hover:text-zinc-900 transition-all duration-300">
                                         {items.title}
                                     </Link> 
