@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 //import Loader from '../Loader/Loader';
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { BiCategory } from "react-icons/bi";
 import Loader from "../Loader/Loader";
 import { FaEdit, FaHeart, FaShoppingCart } from "react-icons/fa";
@@ -92,10 +92,10 @@ const ViewBookDetails = () => {
                                 <div className="flex flex-col md:flex-row lg:flex-col items-center justify-between lg:justify-start mt-8 lg:mt-0 gap-8">
                                     
                                     {/* Edit */}
-                                    <button className="bg-white rounded-full text-2xl lg:text-3xl p-3 flex items-center justify-center hover:bg-gray-200 transition">
+                                    <Link to={`/updateBook/${id}`} className="bg-white rounded-full text-2xl lg:text-3xl p-3 flex items-center justify-center hover:bg-gray-200 transition">
                                         <FaEdit />
                                         <span className="ms-4 block lg:hidden">Edit</span>
-                                    </button>
+                                    </Link>
                 
                                     {/* Delete */}
                                     <button className="text-red-500 rounded-full text-2xl lg:text-3xl p-3 bg-white flex items-center justify-center hover:bg-red-100 transition" onClick={deleteBook}>
