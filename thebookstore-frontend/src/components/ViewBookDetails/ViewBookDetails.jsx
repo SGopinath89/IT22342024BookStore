@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 //import Loader from '../Loader/Loader';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BiCategory } from "react-icons/bi";
 import Loader from "../Loader/Loader";
 import { FaEdit, FaHeart, FaShoppingCart } from "react-icons/fa";
@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 const ViewBookDetails = () => {
 
     const { id } = useParams();
-
+    const navigate = useNavigate();
     const [Data, setData] = useState();
 
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -51,6 +51,15 @@ const ViewBookDetails = () => {
         alert(response.data.message);
     };
 
+    const deleteBook = async () => {
+        const response = await axios.delete(
+            "http://localhost:1000/api/v1/delete-book",
+            { headers }
+        );
+        alert(response.data.message);
+        navigate("/all-books");
+    };
+
     return (
         <>
             {Data && (
@@ -74,6 +83,7 @@ const ViewBookDetails = () => {
                                         <FaShoppingCart />
                                         <span className="ms-4 block lg:hidden">Add to cart</span>
                                     </button>
+
                                 </div>
                             )}
                 
@@ -88,7 +98,7 @@ const ViewBookDetails = () => {
                                     </button>
                 
                                     {/* Delete */}
-                                    <button className="text-red-500 rounded-full text-2xl lg:text-3xl p-3 bg-white flex items-center justify-center hover:bg-red-100 transition">
+                                    <button className="text-red-500 rounded-full text-2xl lg:text-3xl p-3 bg-white flex items-center justify-center hover:bg-red-100 transition" onClick={deleteBook}>
                                         <MdDeleteForever />
                                         <span className="ms-4 block lg:hidden">Delete</span>
                                     </button>
@@ -97,6 +107,7 @@ const ViewBookDetails = () => {
                             )}
                         </div>
                     </div>
+
                     <div className="p-4 w-full lg:w-3/5">
                         <h1 className="text-4xl text-zinc-300 font-semibold mb-4">{Data.title}</h1>
                         <p className="text-zinc-400 mb-4">By {Data.author}</p>
