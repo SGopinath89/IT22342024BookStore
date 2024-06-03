@@ -32,7 +32,7 @@ const MobileNav = () => {
 						All orders
 					</Link>
 				  
-					<Link to="/profile/orderHistory" className="text-zinc-100 font-semibold w-full text-center py-2 bg-zinc-800 hover:bg-zinc-900 rounded transition-all duration-300 shadow-md">
+					<Link to="/profile/add-book" className="text-zinc-100 font-semibold w-full text-center py-2 bg-zinc-800 hover:bg-zinc-900 rounded transition-all duration-300 shadow-md">
 						Add book
 					</Link>
 				</div>
