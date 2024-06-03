@@ -30,19 +30,20 @@ const Navbar = () => {
     ];
 
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
     const role = useSelector((state) => state.auth.role);
     
     // Remove Cart, Profile, and Admin if not logged in
-	if (isLoggedIn === false) {
+    if (isLoggedIn === false) {
         links.splice(2,3);
     }
-	
-	// remove Admin if logged in as user
-	if (isLoggedIn === true && role === "user") {
+
+    // remove Admin if logged in as user
+    if (isLoggedIn === true && role === "user") {
         links.splice(4,1);
     }
 
-	// remove Profile if logged in as admin
+    // remove Profile if logged in as admin
     if (isLoggedIn === true && role === "admin") {
         links.splice(3,1);
     }
@@ -51,8 +52,6 @@ const Navbar = () => {
 
     return (
         <>
-            
-            {/* Desktop navigation */}
             <nav className="flex relative z-50 bg-zinc-800 text-white md:px-20 px-10 py-5 items-center justify-between uppercase">
                 
                 {/* logo */}
@@ -69,12 +68,12 @@ const Navbar = () => {
                                     <Link to={items.link} key={i} className="px-4 py-1 border border-zinc-900 rounded bg-zinc-900 hover:bg-white hover:text-zinc-900 transition-all duration-300">
                                         {items.title}
                                     </Link> 
-									) : ( 
+                                ) : (
                                     <Link to={items.link} key={i} className="hover:text-zinc-900 transition-all duration-300">
                                         {items.title}{" "}
                                     </Link>
-									)
-                                }
+                                )
+                            }
                             </div>
                         ))}
                     </div>
@@ -97,7 +96,6 @@ const Navbar = () => {
                 
             </nav>
 
-            {/* Mobile navigation */}
             <div className={` ${MobileNav} absolute bg-zinc-800 h-screen top-0 left-0 w-full z-40 flex flex-col items-center justify-center`}>
                 {links.map((items, i) => (
                     <Link to={items.link} key={i} className={` ${MobileNav} text-white text-4xl font-semibold mb-8 hover:text-zinc-900 transition-all duration-300`} onClick={() => MobileNav === "hidden" ? setMobileNav("block") : setMobileNav("hidden")}>
@@ -116,7 +114,6 @@ const Navbar = () => {
                     </>
                 )}
             </div>
-
         </>
     );
 };
