@@ -45,7 +45,8 @@ const Navbar = () => {
 
     // remove Profile if logged in as admin
     if (isLoggedIn === true && role === "admin") {
-        links.splice(3,1);
+        links.splice(3,1); // remove Profile
+        links.splice(2,1); // remove cart
     }
 
     const [MobileNav, setMobileNav] = useState("hidden");
