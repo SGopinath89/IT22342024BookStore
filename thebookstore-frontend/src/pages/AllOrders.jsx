@@ -48,7 +48,7 @@ const AllOrders = () => {
 							<h1 className="text-center">No.</h1>
 						</div>
 
-						<div className="w-[60%] md:w-[50%]">
+						<div className="w-[50%] md:w-[40%]">
 							<h1>Title</h1>
 						</div>
 
@@ -56,11 +56,11 @@ const AllOrders = () => {
 							<h1>Category</h1>
 						</div>
 
-						<div className="w-[20%] md:w-[15%]">
+						<div className="w-[10%] md:w-[10%]">
 							<h1>Price</h1>
 						</div>
 
-						<div className="w-[10%] md:w-[10%]">
+						<div className="w-[30%] md:w-[20%]">
 							<h1 className="">
 								<FaUserLarge/>
 							</h1>
@@ -73,7 +73,7 @@ const AllOrders = () => {
 								<h1 className="text-center">{i + 1}</h1>
 							</div>
 
-							<div className="w-[60%] md:w-[50%]">
+							<div className="w-[50%] md:w-[40%]">
 								<Link to={`/view-book-details/${items.book._id}`} className="hover:text-zinc-400">
 									{items.book.title}
 								</Link>
@@ -83,11 +83,11 @@ const AllOrders = () => {
 								<h1>{items.book.category}</h1>
 							</div>
 
-							<div className="w-[20%] md:w-[15%]">
+							<div className="w-[10%] md:w-[10%]">
 								<h1>${items.book.price}</h1>
 							</div>
 
-							<div className="w-[10%] md:w-[10%]">
+							<div className="w-[30%] md:w-[20%]">
 								<button 
 									className="text-xl hover:text-green-500" 
 									onClick={() => {

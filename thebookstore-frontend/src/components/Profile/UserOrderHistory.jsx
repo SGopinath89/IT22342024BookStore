@@ -52,19 +52,19 @@ const UserOrderHistory = () => {
               <h1 className="text-center">No.</h1>
             </div>
 
-            <div className="w-[40%]">
+            <div className="w-[60%] md:w-[50%]">
               <h1>Title</h1>
             </div>
 
-            <div className="w-[20%]">
+            <div className="w-0 md:w-[20%] hidden md:block">
               <h1>Category</h1>
             </div>
 
-            <div className="w-[15%]">
+            <div className="w-[20%] md:w-[15%]">
               <h1>Price</h1>
             </div>
 
-            <div className="w-[15%]">
+            <div className="w-[10%] md:w-[10%]">
               <h1>Status</h1>
             </div>
           </div>
@@ -75,29 +75,23 @@ const UserOrderHistory = () => {
                 <h1 className="text-center">{i + 1}</h1>
               </div>
 
-              <div className="w-[40%]">
+              <div className="w-[60%] md:w-[50%]">
                 <Link className="hover:text-blue-300" to={`/view-book-details/${items.book._id}`}>
                   {items.book.title}
                 </Link>
               </div>
 
-              <div className="w-[20%]">
+              <div className="w-0 md:w-[20%] hidden md:block">
                 <h1 className="">{items.book.category}</h1>
               </div>
 
-              <div className="w-[15%]">
-                <h1 className="">$ {items.book.price}</h1>
+              <div className="w-[20%] md:w-[15%]">
+                <h1 className="">${items.book.price}</h1>
               </div>
 
-              <div className="w-[15%]">
+              <div className="w-[10%] md:w-[10%]">
                 <h1 className="font-semibold text-green-500">
-                  {items.status === "Order placed" ? (
-                    <div className="text-yellow-500">{items.status}</div>
-                  ) : items.status === "Cancelled" ? (
-                    <div className="text-red-500">{items.status}</div>
-                  ) : (
-                    items.status
-                  )}
+                  Order placed
                 </h1>
               </div>
             </div>
